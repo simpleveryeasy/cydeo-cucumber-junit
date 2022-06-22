@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class WebTableOrderPage extends BasePage{
 
     public WebTableOrderPage(){
@@ -40,8 +42,9 @@ public class WebTableOrderPage extends BasePage{
     public WebElement inputZip;
 
 
-    @FindBy(xpath = "//div/label[3]/input")
-    public WebElement radioAmericanExpress;
+    @FindBy(name = "card")
+    public List<WebElement> cardType;
+
 
 
     @FindBy(name = "cardNo")
@@ -54,8 +57,9 @@ public class WebTableOrderPage extends BasePage{
     public WebElement buttonProcessOrder;
 
 
-    @FindBy(xpath = "//tr/td")
-    public WebElement recentRowNameCell;
+
+
+
 
 
 

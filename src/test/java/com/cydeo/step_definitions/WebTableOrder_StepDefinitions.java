@@ -3,6 +3,8 @@ package com.cydeo.step_definitions;
 import com.cydeo.pages.BasePage;
 import com.cydeo.pages.WebTableOrderPage;
 import com.cydeo.pages.WebTablePage;
+import com.cydeo.pages.ViewAllOrdersPage;
+import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.Driver;
 import io.cucumber.java.en.And;
@@ -10,6 +12,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.Select;
 
 public class WebTableOrder_StepDefinitions {
@@ -17,6 +20,7 @@ public class WebTableOrder_StepDefinitions {
     WebTablePage webTablePage = new WebTablePage();
     BasePage basePage =new BasePage();
     WebTableOrderPage webTableOrderPage = new WebTableOrderPage();
+    ViewAllOrdersPage viewAllOrdersPage = new ViewAllOrdersPage();
 
 
     @Given("user is already logged in and on order page")
@@ -33,12 +37,22 @@ public class WebTableOrder_StepDefinitions {
 
     }
 
-    @When("user enters quantity {string}")
+    /* @When("user enters quantity {string}")
     public void user_enters_quantity(String string) {
         webTableOrderPage.inputQuantity.sendKeys(string);
 
+    }*/
 
+
+    @And("user enters quantity {int}")
+    public void userEntersQuantity(int arg0) {
+        //webTableOrderPage.inputQuantity.sendKeys(arg0+"");
+
+        //webTableOrderPage.inputQuantity.clear();
+        webTableOrderPage.inputQuantity.sendKeys(Keys.BACK_SPACE);
+        webTableOrderPage.inputQuantity.sendKeys(String.valueOf(arg0));
     }
+
 
     @When("user enters customer name {string}")
     public void user_enters_customer_name(String string) {
@@ -71,8 +85,8 @@ public class WebTableOrder_StepDefinitions {
     }
 
     @When("user selects credit card type {string}")
-    public void user_selects_credit_card_type(String string) {
-        webTableOrderPage.radioAmericanExpress.click();
+    public void user_selects_credit_card_type(String expectedCardType) {
+        BrowserUtils.clickRadioButton(webTableOrderPage.cardType, expectedCardType);
 
     }
 
@@ -96,11 +110,12 @@ public class WebTableOrder_StepDefinitions {
 
     @Then("user should see {string} in first row of the web table")
     public void user_should_see_in_first_row_of_the_web_table(String string) {
-        webTableOrderPage.viewAllOrders.click();
-        String actualName = webTableOrderPage.recentRowNameCell.getText();
+        //basePage.viewAllOrders.click();
+        String actualName = viewAllOrdersPage.newCustomerCell.getText();
         Assert.assertEquals(string, actualName);
 
     }
+
 
 
 }
