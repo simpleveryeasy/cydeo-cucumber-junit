@@ -1,6 +1,7 @@
 Feature: Web table user order feature
 
 
+  @smoke
   Scenario: User should be able to place order and order seen in the table
     Given user is already logged in and on order page
     When user selects product type "Familybea"
